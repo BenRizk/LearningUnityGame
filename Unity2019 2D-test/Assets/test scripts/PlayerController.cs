@@ -6,59 +6,89 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //public CharacterController2D myControl;
+    //movement variables
     public Rigidbody2D myBody;
     public float mySpeed = 40f;
-
+    //interaction variables
     public bool isOverObject = false;
     public bool holding = false;
     Transform temp;
-
     public GameObject currentObj;
     public GameObject heldObj;
     public GameObject digHoles;
-
+    //animation variables
     Vector2 moves;
     public Animator animator;
     float holdDir = 0;
+    //hunger variables
+    public int currentHunger;
+    public HungerBar myHunger;
+    int time;
+
+    void Start() // called when game beings
+    {
+        currentHunger = 50;
+        myHunger.SetHunger(currentHunger);
+        time = 0;
+    }
+
     // Update is called once per frame
     void Update()
-    {
+    {   //code to update position
         moves.x = Input.GetAxisRaw("Horizontal") * mySpeed;
         moves.y = Input.GetAxisRaw("Vertical") * mySpeed;
-
+        // code to update animator
         animator.SetFloat("horizontal", moves.x);
         animator.SetFloat("Vertical", moves.y);
         animator.SetFloat("Speed", moves.sqrMagnitude);
-        if(moves.x != 0)
+        if(moves.x != 0) 
         {
             holdDir = moves.x;
         }
         
         animator.SetFloat("LastPosition", holdDir);
-
+        //code for interaction
         if(Input.GetButtonDown("Interact"))
         {
-            if (holding)
+            if (holding)                        // am i holding? --> drop it
             {
                 currentObj.transform.parent = temp;
                 holding = false;
                 return;
             }
-            if (isOverObject)
+            if (isOverObject)                   // am I over object?
             {
+                if (currentObj.name.Equals("Plant_Seed")) //is it a seed --> pick it up
+                { 
                 currentObj.transform.parent = this.transform;
                 holding = true;
                 return;
+                }
+                if(currentObj.name.Equals("apple")) //is it an apple --> eat it
+                {
+                    currentHunger += 10;
+                    myHunger.SetHunger(currentHunger);
+                    Destroy(currentObj);
+                }
             }
-            else
+            else   // otherwise dig a hole
             {
-                Vector3 tempV = this.transform.position;
-                Instantiate(digHoles, tempV, Quaternion.identity);
+                Vector3 tempV = this.transform.position;//get my position
+                Instantiate(digHoles, tempV, Quaternion.identity);//dig hole at position
             }
         }
-       
-
+        //every 5 seconds lose health
+        if(time < 300)
+        {
+            time++;
+        }
+        else
+        {
+            time = 0;
+            currentHunger -= 1;
+            myHunger.SetHunger(currentHunger);
+        }
+        
     }
 
     void FixedUpdate()
@@ -67,7 +97,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D that){
-        if (that.CompareTag("IsInteractable"))
+        if (that.CompareTag("IsInteractable")) //sat i'm over an object and save object i'm over
         {
             isOverObject = true;
             currentObj = that.gameObject;
@@ -76,7 +106,7 @@ public class PlayerController : MonoBehaviour
     
     void OnTriggerExit2D(Collider2D that)
     {
-        if (that.CompareTag("IsInteractable") && isOverObject == true)
+        if (that.CompareTag("IsInteractable") && isOverObject == true) // did I stop being over object
         {
             isOverObject = false;
         }
