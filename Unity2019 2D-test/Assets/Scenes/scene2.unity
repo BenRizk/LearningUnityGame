@@ -8153,9 +8153,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 972104790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a4307340c9b1247946a2689903438d, type: 3}
+  m_Script: {fileID: 11500000, guid: 22d6e028f9ba10d448d9d938e8747cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnMe: {fileID: 1414622384}
 --- !u!1 &1035775355
 GameObject:
   m_ObjectHideFlags: 0
@@ -8337,7 +8338,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 05b56d1bb9df1b748a92f22b83f5df97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -8357,11 +8358,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414622384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.87, y: -0.25, z: -2.1128497}
+  m_LocalPosition: {x: -16.22, y: 3.27, z: -2.1128497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1525558939
 GameObject:
@@ -8766,5 +8767,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

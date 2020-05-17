@@ -64,9 +64,12 @@ public class PlayerController : MonoBehaviour
                 holding = true;
                 return;
                 }
-                if(currentObj.name.Equals("apple")) //is it an apple --> eat it
+                if(currentObj.name.Equals("apple") || currentObj.name.Equals("apple(Clone)")) //is it an apple --> eat it
                 {
-                    currentHunger += 10;
+                    if (currentHunger < 100)
+                    {
+                        currentHunger += 10;
+                    }
                     myHunger.SetHunger(currentHunger);
                     Destroy(currentObj);
                 }
