@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class GameSpawner : MonoBehaviour
 {
+    public long spawnRate = 5;
     public GameObject spawnMe;
     Vector3 thatPos = new Vector3();
 
     // Update is called once per frame
     void Update()
     {
-        thatPos = new Vector3(Random.Range(1, 16), Random.Range(-3, 1), 0);
-        if ((Random.Range(1, 1000)) < 5)
+        thatPos = new Vector3(Random.Range(1, 16), Random.Range(-3, 1), 0); // choose random lcoation to spawn
+        if ((Random.Range(1, 1000)) < spawnRate)                            // randomly spawn object
         {
             Instantiate(spawnMe, thatPos, Quaternion.identity);
         }

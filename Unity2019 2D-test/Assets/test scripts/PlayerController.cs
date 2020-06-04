@@ -52,15 +52,17 @@ public class PlayerController : MonoBehaviour
         {
             if (holding)                        // am i holding? --> drop it
             {
-                currentObj.transform.parent = temp;
-                holding = false;
+                heldObj.transform.parent = temp;    // no longer parent
+                holding = false;                    // i am not holding
+                heldObj = null;                     // reset holding variable
                 return;
             }
             if (isOverObject)                   // am I over object?
             {
-                if (currentObj.name.Equals("Plant_Seed")) //is it a seed --> pick it up
+                if (currentObj.name.Equals("Plant_Seed(Clone)")) //is it a seed --> pick it up
                 { 
                 currentObj.transform.parent = this.transform;
+                heldObj = currentObj;
                 holding = true;
                 return;
                 }
@@ -100,7 +102,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D that){
-        if (that.CompareTag("IsInteractable")) //sat i'm over an object and save object i'm over
+        if (that.CompareTag("IsInteractable")) //say i'm over an object and save object i'm over
         {
             isOverObject = true;
             currentObj = that.gameObject;
