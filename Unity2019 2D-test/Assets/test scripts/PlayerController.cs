@@ -50,31 +50,45 @@ public class PlayerController : MonoBehaviour
         //code for interaction
         if(Input.GetButtonDown("Interact"))
         {
-            if (holding)                        // am i holding? --> drop it
+            if (holding)                        // am i holding item? --> drop it
             {
-                heldObj.transform.parent = temp;    // no longer parent
+                if(heldObj != null)             //check if my held item still exists(held item can be destroyed by other means)
+                {
+                    heldObj.transform.parent = temp;    // no longer parent                   
+                }
                 holding = false;                    // i am not holding
                 heldObj = null;                     // reset holding variable
+                currentObj = null;
                 return;
+                
             }
             if (isOverObject)                   // am I over object?
-            {
-                if (currentObj.name.Equals("Plant_Seed(Clone)")) //is it a seed --> pick it up
-                { 
-                currentObj.transform.parent = this.transform;
-                heldObj = currentObj;
-                holding = true;
-                return;
-                }
-                if(currentObj.name.Equals("apple") || currentObj.name.Equals("apple(Clone)")) //is it an apple --> eat it
+            {     
+                if(currentObj != null)          //did my current obj get deleted?
                 {
-                    if (currentHunger < 100)
+                    if (currentObj.name.Equals("Plant_Seed(Clone)")) //is it a seed --> pick it up
                     {
-                        currentHunger += 10;
+                        currentObj.transform.parent = this.transform;
+                        heldObj = currentObj;
+                        holding = true;
+                        return;
                     }
-                    myHunger.SetHunger(currentHunger);
-                    Destroy(currentObj);
+                    if (currentObj.name.Equals("apple") || currentObj.name.Equals("apple(Clone)")) //is it an apple --> eat it
+                    {
+                        if (currentHunger < 100)
+                        {
+                            currentHunger += 10;
+                        }
+                        myHunger.SetHunger(currentHunger);
+                        Destroy(currentObj);
+                    }
                 }
+                else   // otherwise dig a hole
+                {
+                    Vector3 tempV = this.transform.position;//get my position
+                    Instantiate(digHoles, tempV, Quaternion.identity);//dig hole at position
+                }
+
             }
             else   // otherwise dig a hole
             {
