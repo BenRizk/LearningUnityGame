@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D that){
-        if (that.CompareTag("IsInteractable")) //say i'm over an object and save object i'm over
+        if (that.CompareTag("IsInteractable")) //when i'm over an object, save object i'm over
         {
             isOverObject = true;
             currentObj = that.gameObject;
