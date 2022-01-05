@@ -19,7 +19,7 @@ public class GameSpawner : MonoBehaviour
         {        
             if (spawnMe.name.Equals("Plant_Seed"))           //If I am a seed then assign values to choose plant to spawn
             {
-                spawnMe.GetComponent<PlantingMechanic>().mySprite = ListedSprites[Random.Range(0, 4)];
+                spawnMe.GetComponent<PlantingMechanic>().mySprite = ListedSprites[Random.Range(0, 5)];
                 spawnMe.GetComponent<PlantingMechanic>().score = Random.Range(1, 15);
             }           
             Instantiate(spawnMe, thatPos, Quaternion.identity);

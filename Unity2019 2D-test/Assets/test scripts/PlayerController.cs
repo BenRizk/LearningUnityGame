@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public GameObject currentObj;
     public GameObject heldObj;
     public GameObject digHoles;
+    public GameObject dummyObject;
     //animation variables
     Vector2 moves;
     public Animator animator;
@@ -47,6 +48,17 @@ public class PlayerController : MonoBehaviour
         }
         
         animator.SetFloat("LastPosition", holdDir);
+
+        //code for state handling
+
+        if(heldObj == null && holding)      // always check for heldobj deletion --> if deleted then reset variables
+        {
+            holding = false;                    
+            heldObj = null;                     
+            currentObj = null;
+        }
+
+
         //code for interaction
         if(Input.GetButtonDown("Interact"))
         {
@@ -54,7 +66,7 @@ public class PlayerController : MonoBehaviour
             {
                 if(heldObj != null)             //check if my held item still exists(held item can be destroyed by other means)
                 {
-                    heldObj.transform.parent = temp;    // no longer parent                   
+                    heldObj.transform.parent = temp;    // no longer parent(will no longer follow player)                   
                 }
                 holding = false;                    // i am not holding
                 heldObj = null;                     // reset holding variable
@@ -96,7 +108,7 @@ public class PlayerController : MonoBehaviour
                 Instantiate(digHoles, tempV, Quaternion.identity);//dig hole at position
             }
         }
-        //every 5 seconds lose health
+        //every 5 seconds lose health (300 = 5 seconds)
         if(time < 300)
         {
             time++;
