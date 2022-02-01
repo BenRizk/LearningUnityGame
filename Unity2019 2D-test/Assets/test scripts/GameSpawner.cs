@@ -21,7 +21,8 @@ public class GameSpawner : MonoBehaviour
             {
                 spawnMe.GetComponent<PlantingMechanic>().mySprite = ListedSprites[Random.Range(0, 5)];
                 spawnMe.GetComponent<PlantingMechanic>().score = Random.Range(1, 15);
-            }           
+            }
+
             Instantiate(spawnMe, thatPos, Quaternion.identity);
             currentObjects++;
         }

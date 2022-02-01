@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public GameObject heldObj;
     public GameObject digHoles;
     public GameObject dummyObject;
+    //inventory Variables
+    public GameObject myInv;
     //animation variables
     Vector2 moves;
     public Animator animator;
@@ -94,6 +96,12 @@ public class PlayerController : MonoBehaviour
                         myHunger.SetHunger(currentHunger);
                         Destroy(currentObj);
                     }
+                    if(currentObj.name.Equals("Sticks(Clone)") || currentObj.name.Equals("String(Clone)") || currentObj.name.Equals("Planks(Clone)"))
+                    {
+
+                        myInv.GetComponent<InventoryScript>().addToInventory(currentObj, 1);
+                        Destroy(currentObj);
+                    }
                 }
                 else   // otherwise dig a hole
                 {
@@ -108,6 +116,8 @@ public class PlayerController : MonoBehaviour
                 Instantiate(digHoles, tempV, Quaternion.identity);//dig hole at position
             }
         }
+
+        //code for hunger determination
         //every 5 seconds lose health (300 = 5 seconds)
         if(time < 300)
         {
